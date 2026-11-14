@@ -172,7 +172,7 @@ function updateDashboard() {
         document.getElementById("stat-battery").textContent = rem + " Wh / " + stats.totalBatteryWh + " Wh";
         document.getElementById("stat-battery").className = stats.batteryRemaining < 0 ? "red-text" : "green-text";
         document.getElementById("bar-battery").style.width = stats.totalBatteryWh > 0 ? Math.min(100, (rem / stats.totalBatteryWh) * 100) + "%" : "0%";
-Use code with caution.
+
 document.getElementById("bar-battery").className = "mini-fill " + (stats.batteryRemaining < 0 ? "over" : "");
 }
 document.getElementById("stat-points").textContent = stats.totalPoints + " PTS";

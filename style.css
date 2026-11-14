@@ -1,0 +1,344 @@
+--
+
+```css
+:root {
+    --cyan: #38bdf8;
+    --cyan-glow: rgba(56, 189, 248, 0.45);
+    --purple-neon: #a855f7;
+    --purple-border: rgba(168, 85, 247, 0.6);
+    --glass-bg: rgba(11, 18, 34, 0.82);
+    --text-white: #f8fafc;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+body { background-color: #030712; color: var(--text-white); min-height: 100vh; overflow-x: hidden; }
+
+.space-bg {
+    position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse at 50% 45%, rgba(56, 189, 248, 0.25) 0%, rgba(88, 28, 135, 0.15) 40%, rgba(2, 6, 23, 0.97) 75%);
+}
+
+.container { max-width: 1240px; margin: 0 auto; padding: 18px; }
+.screen { display: none; animation: fadeIn 0.3s ease; }
+.screen.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.hud-frame {
+    border: 2px solid var(--purple-border); border-radius: 22px; padding: 18px 22px;
+    background: rgba(6, 10, 20, 0.72); backdrop-filter: blur(12px);
+    box-shadow: 0 0 35px rgba(168, 85, 247, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.top-bar { display: flex; align-items: flex-start; gap: 35px; margin-bottom: 50px; }
+.nasa-badge {
+    border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%; width: 110px; height: 110px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); flex-shrink: 0;
+}
+.nasa-red { color: #ef4444; font-weight: 900; font-size: 0.85rem; }
+.nasa-badge strong { font-size: 0.9rem; letter-spacing: 0.5px; }
+.qena-loc { font-size: 0.7rem; color: var(--cyan); margin-top: 2px; }
+.hero-title h1 { font-size: 4rem; font-weight: 800; letter-spacing: 3px; line-height: 1.1; }
+.hero-title p { font-size: 1.25rem; color: #e2e8f0; margin-top: 8px; }
+
+.home-main-area { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin: 60px 0 35px; flex-wrap: wrap; }
+.prep-card { background: rgba(30, 58, 138, 0.45); backdrop-filter: blur(12px); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 20px; padding: 20px; width: 170px; text-align: center; }
+.progress-pill { width: 55px; height: 140px; border: 2px solid #93c5fd; border-radius: 14px; margin: 0 auto 15px; display: flex; align-items: flex-end; overflow: hidden; background: rgba(15, 23, 42, 0.6); }
+.progress-fill { width: 100%; background: linear-gradient(to top, #3b82f6, #38bdf8); transition: height 0.5s ease; }
+.prep-text { font-size: 0.95rem; color: #e2e8f0; line-height: 1.4; }
+
+.home-actions { display: flex; gap: 22px; flex-wrap: wrap; }
+.action-card { width: 175px; height: 175px; border-radius: 24px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: 0.25s; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+.action-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(56, 189, 248, 0.35); }
+.card-purple { background: linear-gradient(135deg, rgba(109, 40, 217, 0.75), rgba(59, 130, 246, 0.65)); }
+.card-blue { background: linear-gradient(135deg, rgba(37, 99, 235, 0.75), rgba(14, 165, 233, 0.65)); }
+.card-teal { background: linear-gradient(135deg, rgba(13, 148, 136, 0.75), rgba(16, 185, 129, 0.65)); }
+.card-icon { font-size: 3rem; margin-bottom: 12px; }
+.card-label { font-weight: 800; font-size: 0.95rem; }
+
+.home-budget-bar { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 16px; padding: 16px 25px; max-width: 720px; margin-left: auto; }
+.budget-text { text-align: center; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
+.budget-track { height: 16px; background: #020617; border-radius: 10px; border: 1px solid #334155; padding: 2px; }
+.budget-glow { height: 100%; background: linear-gradient(90deg, #0284c7, #38bdf8); border-radius: 8px; box-shadow: 0 0 12px var(--cyan); transition: width 0.4s ease; }
+
+.missions-header { text-align: center; margin-bottom: 35px; }
+.missions-header h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: 2px; }
+.missions-header p { color: #cbd5e1; font-size: 0.95rem; margin-top: 6px; }
+.missions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 24px; margin-bottom: 35px; }
+.mission-card { background: var(--glass-bg); backdrop-filter: blur(14px); border: 1.5px solid rgba(56, 189, 248, 0.45); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.25s; }
+.mission-card.unlocked:hover { border-color: var(--cyan); box-shadow: 0 0 30px var(--cyan-glow); transform: translateY(-4px); }
+.mission-card.locked { opacity: 0.72; border-color: rgba(148, 163, 184, 0.3); }
+.m-card-top { display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(255,255,255,0.12); padding-bottom: 15px; margin-bottom: 15px; }
+.m-icon { font-size: 2.4rem; }
+.m-title { font-size: 1.15rem; font-weight: 800; }
+.m-meta { font-size: 0.85rem; font-weight: 700; color: var(--cyan); margin-bottom: 10px; }
+.m-desc { font-size: 0.9rem; color: #e2e8f0; margin-bottom: 18px; }
+.m-specs { font-size: 0.85rem; color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; margin-bottom: 20px; }
+.select-btn { width: 100%; padding: 13px; border-radius: 10px; font-weight: 800; cursor: pointer; border: 1.5px solid var(--cyan); background: linear-gradient(90deg, rgba(14, 165, 233, 0.35), rgba(56, 189, 248, 0.55)); color: #fff; }
+.select-btn:hover { background: var(--cyan); color: #020617; }
+.locked-btn { width: 100%; padding: 13px; border-radius: 10px; font-weight: 800; border: 1px solid rgba(148, 163, 184, 0.3); background: rgba(30, 41, 59, 0.6); color: #64748b; cursor: not-allowed; }
+.center-btn-wrap { text-align: center; }
+.dark-pill-btn { padding: 11px 26px; border-radius: 10px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(148, 163, 184, 0.45); color: #e2e8f0; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.dark-pill-btn:hover { border-color: var(--cyan); color: #fff; }
+
+Part 2
+
+css
+.hud-topbar { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(168, 85, 247, 0.35); padding-bottom: 14px; margin-bottom: 20px; gap: 15px; flex-wrap: wrap; }
+.hud-topbar h2 { font-size: 1.55rem; font-weight: 800; letter-spacing: 1.5px; text-align: center; }
+.nav-pill-sm { background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(148, 163, 184, 0.45); color: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; }
+.atlas-status-badge { display: flex; align-items: center; gap: 8px; background: rgba(88, 28, 135, 0.45); border: 1px solid var(--purple-neon); padding: 8px 14px; border-radius: 10px; font-size: 0.8rem; font-weight: 800; color: #e9d5ff; }
+.pulse-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px var(--success); }
+
+.lab-3col { display: grid; grid-template-columns: 1fr 1.25fr 1.05fr; gap: 20px; align-items: stretch; margin-bottom: 20px; }
+@media (max-width: 960px) { .lab-3col { grid-template-columns: 1fr; } }
+.col-heading { font-size: 0.88rem; font-weight: 800; letter-spacing: 1px; color: #cbd5e1; margin-bottom: 10px; }
+.telemetry-stack, .inventory-stack { display: flex; flex-direction: column; gap: 10px; }
+
+.hud-box { background: rgba(15, 23, 42, 0.85); border: 1.5px solid var(--purple-border); border-radius: 10px; padding: 10px 14px; box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.12); }
+.hud-box-row { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+.hud-box small { display: block; font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
+.mini-bar { height: 6px; background: #020617; border-radius: 4px; overflow: hidden; }
+.mini-fill { height: 100%; width: 40%; background: linear-gradient(90deg, #3b82f6, #a855f7); transition: width 0.3s ease; }
+.mini-fill.over { background: var(--danger); }
+.cyan-text { color: var(--cyan); }
+.green-text { color: var(--success); }
+.red-text { color: var(--danger); }
+
+.diag-box { border-color: var(--cyan); background: rgba(14, 116, 144, 0.22); flex: 1; }
+.diag-title { font-size: 0.8rem; font-weight: 800; color: var(--cyan); margin-bottom: 6px; }
+.diag-box p { font-size: 0.84rem; line-height: 1.45; color: #f1f5f9; }
+
+.lab-center-blueprint { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; border-radius: 16px; background: radial-gradient(circle at center, rgba(56, 189, 248, 0.12) 0%, transparent 70%); min-height: 360px; }
+.blueprint-grid-floor { position: absolute; bottom: 35px; width: 85%; height: 130px; border: 1.5px solid rgba(168, 85, 247, 0.45); background-image: linear-gradient(rgba(56, 189, 248, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.2) 1px, transparent 1px); background-size: 22px 22px; transform: perspective(300px) rotateX(55deg); box-shadow: 0 0 25px rgba(168, 85, 247, 0.25); z-index: 0; }
+.blueprint-craft { position: relative; z-index: 2; text-align: center; }
+.craft-emoji { font-size: 6.5rem; filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.65)); margin-bottom: 8px; }
+.craft-label { font-size: 0.78rem; font-weight: 800; letter-spacing: 1.5px; color: var(--cyan); background: rgba(2, 6, 23, 0.75); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.4); }
+.blueprint-tags { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 28px; }
+.bp-tag { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(148, 163, 184, 0.3); color: #64748b; transition: 0.25s; }
+.bp-tag.active { border-color: var(--cyan); color: #fff; box-shadow: 0 0 10px rgba(56, 189, 248, 0.35); }
+.night-toggle-wrap { position: relative; z-index: 2; margin-top: 16px; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--purple-neon); padding: 8px 14px; border-radius: 10px; font-size: 0.8rem; }
+.night-toggle-wrap label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+
+.inv-card { background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(168, 85, 247, 0.35); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.2s; }
+.inv-card:hover { border-color: var(--cyan); }
+.inv-card.selected { border-color: var(--cyan); background: rgba(14, 116, 144, 0.28); box-shadow: 0 0 14px rgba(56, 189, 248, 0.22); }
+.inv-icon { font-size: 1.5rem; width: 36px; text-align: center; }
+.inv-details { flex: 1; }
+.inv-title { font-weight: 700; font-size: 0.88rem; }
+.inv-sub { font-size: 0.74rem; color: var(--text-muted); }
+.inv-check { font-weight: 900; color: var(--cyan); font-size: 1.1rem; }
+
+.hud-bottom-bar { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 12px; border-top: 1px solid rgba(168, 85, 247, 0.35); }
+.purple-launch-btn { padding: 13px 38px; border-radius: 12px; background: linear-gradient(180deg, rgba(126, 34, 206, 0.8), rgba(76, 29, 149, 0.95)); border: 1.5px solid var(--purple-neon); color: #fff; font-weight: 800; font-size: 1rem; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 22px rgba(168, 85, 247, 0.45); transition: 0.2s; }
+.purple-launch-btn:hover { background: var(--purple-neon); transform: translateY(-2px); }
+
+.digital-clock { font-family: 'Courier New', monospace; font-size: 3.4rem; font-weight: 900; letter-spacing: 4px; color: #fff; text-shadow: 0 0 20px var(--purple-neon); }
+.clock-progress-track { width: 75%; height: 10px; background: #020617; border: 1px solid var(--purple-neon); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+.clock-progress-fill { height: 100%; width: 100%; background: linear-gradient(90deg, var(--purple-neon), var(--cyan)); transition: width 0.8s linear; }
+.status-green-box { margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: rgba(16, 185, 129, 0.15); border: 1.5px solid var(--success); color: #6ee7b7; font-size: 0.82rem; }
+.status-green-box.warn { background: rgba(239, 68, 68, 0.15); border-color: var(--danger); color: #fca5a5; }
+.step-box { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 700; }
+.step-box strong { color: var(--cyan); }
+.active-seq-banner { padding: 12px 36px; border-radius: 12px; background: rgba(88, 28, 135, 0.5); border: 1.5px solid var(--purple-neon); font-weight: 800; letter-spacing: 1.5px; color: #e9d5ff; box-shadow: 0 0 20px rgba(168, 85, 247, 0.35); }
+.rocket-shake { animation: shake 0.4s infinite; }
+@keyframes shake { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-2px, 2px); } 75% { transform: translate(2px, -2px); } }
+
+.codex-btn { display: flex; align-items: center; gap: 10px; background: rgba(88, 28, 135, 0.45); border: 1.5px solid var(--purple-neon); color: #fff; padding: 8px 14px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; text-align: left; cursor: pointer; box-shadow: 0 0 15px rgba(168, 85, 247, 0.35); }
+.report-3col { display: grid; grid-template-columns: 1fr 1.45fr 1fr; gap: 20px; align-items: stretch; margin-bottom: 24px; }
+@media (max-width: 900px) { .report-3col { grid-template-columns: 1fr; } }
+.metrics-stack, .log-stack { display: flex; flex-direction: column; gap: 10px; }
+.metric-box { background: rgba(15, 23, 42, 0.85); border: 1.5px solid var(--purple-border); border-radius: 10px; padding: 11px 14px; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; }
+.metric-info strong { display: block; color: #94a3b8; font-size: 0.75rem; }
+.metric-info span { color: #fff; font-weight: 700; }
+.metric-status { font-size: 1.2rem; font-weight: 900; }
+.metric-status.pass { color: var(--success); }
+.metric-status.fail { color: var(--danger); }
+.report-center-box { background: radial-gradient(circle at center, rgba(30, 41, 59, 0.85), rgba(10, 15, 28, 0.92)); border: 2px solid var(--purple-neon); border-radius: 18px; padding: 28px 22px; text-align: center; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 0 30px rgba(168, 85, 247, 0.25); }
+.status-heading { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+.status-heading.fail { color: #f87171; }
+.status-heading.pass { color: #e9d5ff; }
+.big-status-visual { font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin: 10px 0; }
+.big-status-visual.fail { color: #ef4444; text-shadow: 0 0 25px rgba(239, 68, 68, 0.6); }
+.big-status-visual.stars { color: #c084fc; text-shadow: 0 0 28px rgba(192, 132, 252, 0.85); letter-spacing: 8px; }
+.science-score-line { font-size: 1.45rem; font-weight: 800; letter-spacing: 1px; margin: 12px 0; }
+.science-score-line span { color: var(--cyan); }
+.atlas-diag-wrap { margin-top: 10px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); }
+.diag-label { font-size: 0.95rem; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; }
+.diag-body { font-size: 0.92rem; color: #e2e8f0; line-height: 1.5; }
+.log-item { background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 8px; padding: 10px 12px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; }
+.log-item.warn { border-color: var(--warning); color: #fcd34d; }
+.log-item.err { border-color: var(--danger); color: #fca5a5; }
+.log-item.ok { border-color: rgba(56, 189, 248, 0.4); color: #e2e8f0; }
+.report-bottom-btns { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+
+.video-overlay { display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.92); backdrop-filter: blur(12px); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
+Use code with caution.
+.video-stage-card { background: linear-gradient(145deg, #0f172a, #1e1b4b); border: 2px solid var(--cyan); border-radius: 22px; max-width: 720px; width: 100%; padding: 24px; box-shadow: 0 0 45px rgba(56, 189, 248, 0.35); text-align: center; }
+.video-stage-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.ai-badge { background: rgba(56, 189, 248, 0.15); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; }
+.skip-video-btn { background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(148, 163, 184, 0.4); color: #e2e8f0; padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+.real-video-box { width: 100%; border-radius: 14px; border: 1.5px solid var(--purple-neon); margin-bottom: 18px; max-height: 360px; background: #000; }
+.cute-stage { background: radial-gradient(circle at top, rgba(168, 85, 247, 0.22), rgba(15, 23, 42, 0.9)); border: 1.5px dashed rgba(56, 189, 248, 0.5); border-radius: 16px; padding: 30px 22px; margin-bottom: 20px; }
+.cute-character-bounce { font-size: 5rem; margin-bottom: 12px; display: inline-block; animation: cuteBounce 2s infinite ease-in-out; }
+@keyframes cuteBounce { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.06); } }
+.cute-stage h3 { font-size: 1.5rem; color: var(--cyan); margin-bottom: 10px; }
+.cute-stage p { font-size: 1.05rem; color: #f1f5f9; line-height: 1.6; max-width: 580px; margin: 0 auto 14px; }
+.story-nasa-note { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); color: #6ee7b7; padding: 10px 15px; border-radius: 10px; font-size: 0.88rem; margin-top: 10px; }
+.rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+.rule-card { background: var(--glass-bg); border: 1px solid rgba(56, 189, 248, 0.45); border-radius: 14px; padding: 20px; }
+.rule-card h3 { color: var(--cyan); margin-bottom: 10px; }
+
+---
+
+### 3. `script.js`
+
+#### Part 1
+```javascript
+const levelsData = {
+    1: {
+        id: 1,
+        code: "MISSION 01",
+        icon: "🛰️",
+        craftLabel: "6U CUBESAT ARCHITECTURE",
+        title: "MISSION 01:<br>EYES ON CLIMATE",
+        cleanTitle: "MISSION 01: EYES ON CLIMATE",
+        levelName: "NOVICE",
+        objective: "EARTH-MONITOR CUBESAT",
+        description: "An unprecedented heat wave hits North Africa. Scientists need a small CubeSat to monitor vegetation and Earth's temperature from a 500 km orbit.",
+        budget: 500000,
+        rocketName: "Falcon 9 Rideshare",
+        rocketCapacity: 25,
+        rocketCost: 150000,
+        specsSummary: "Payload: 25 kg | Launch Cost: $150,000",
+        eclipseHours: 35 / 60,
+        orbitPhysics: "ORBIT RADIUS: 6,871 KM | VELOCITY: 7.62 KM/S | PERIOD: 94.5 MIN",
+        introVideo: "videos/mission1_intro.mp4",
+        outroVideo: "videos/mission1_nasa_story.mp4",
+        cuteIntroChar: "👩‍🚀🛰️",
+        cuteIntroTitle: "Commander Lina's Briefing: Eyes on Climate!",
+        cuteIntroText: "Year 2031. An unprecedented heat wave hits North Africa! Scientists need a 6U CubeSat in a 500 km orbit to monitor vegetation and Earth's temperature. Keep it within the $500K budget and don't forget the antenna!",
+        cuteOutroChar: "🌍✨",
+        cuteOutroTitle: "Real NASA Journey: Tiny Satellites, Big Impact!",
+        cuteOutroText: "In real life, NASA launches shoebox-sized CubeSats like TROPICS and PREFIRE! They zip around Earth every 94.5 minutes at 7.62 km/s, tracking heat waves and storms at a fraction of the cost of giant satellites.",
+        parts: [
+            { id: "chassis_6u", icon: "📦", category: "core", shortName: "6U BUS", name: "Structure (6U Bus, 86 Wh Battery)", mass: 6, cost: 120000, powerGenDay: 0, powerUseDay: 0, powerUseNight: 0, batteryWh: 86, points: 0, required: true },
+            { id: "solar_1", icon: "☀️", category: "system", shortName: "SOLAR ARRAY", name: "Solar Array (68 W)", mass: 0.78, cost: 60000, powerGenDay: 68, powerUseDay: 0, powerUseNight: 0, batteryWh: 0, points: 0 },
+            { id: "cam_1", icon: "📷", category: "science", shortName: "SCIENTIFIC CAMERA", name: "Scientific Camera (6 W)", mass: 0.5, cost: 45000, powerGenDay: 0, powerUseDay: 6, powerUseNight: 6, batteryWh: 0, points: 20 },
+            { id: "spec_1", icon: "🔬", category: "science", shortName: "MINI SPECTROMETER", name: "Mini Spectrometer (12 W)", mass: 1.2, cost: 120000, powerGenDay: 0, powerUseDay: 12, powerUseNight: 12, batteryWh: 0, points: 25 },
+            { id: "comm_1", icon: "📡", category: "system", shortName: "COMMUNICATION SYSTEM", name: "Communication System (11 W)", mass: 0.246, cost: 20000, powerGenDay: 0, powerUseDay: 11, powerUseNight: 11, batteryWh: 0, points: 0 },
+            { id: "ant_1", icon: "📶", category: "system", shortName: "ANTENNA", name: "Antenna", mass: 0.0774, cost: 8000, powerGenDay: 0, powerUseDay: 0, powerUseNight: 0, batteryWh: 0, points: 0 }
+        ]
+    },
+    2: {
+        id: 2,
+        code: "MISSION 02",
+        icon: "🌕",
+        craftLabel: "VIPER-CLASS LUNAR ROVER",
+        title: "MISSION 02:<br>WATER ON THE MOON",
+        cleanTitle: "MISSION 02: WATER ON THE MOON",
+        levelName: "INTERMEDIATE",
+        objective: "LUNAR WATER-ICE EXPLORATION",
+        description: "Dr. Laila detected signals of buried ice near the lunar South Pole. Design a rover to drill, analyze, and transmit data back.",
+        budget: 75000000,
+        rocketName: "Electron",
+        rocketCapacity: 300,
+        rocketCost: 7500000,
+        specsSummary: "Capacity: 300 kg | Night: 12 Hours | Launch Cost: $7.5M",
+        eclipseHours: 12,
+        orbitPhysics: "LUNAR GRAVITY: 1.62 M/S² | LUNAR NIGHT ECLIPSE: 12 HOURS",
+        introVideo: "videos/mission2_intro.mp4",
+        outroVideo: "videos/mission2_nasa_story.mp4",
+        cuteIntroChar: "🤖🌕",
+        cuteIntroTitle: "Dr. Laila's Briefing: Hunting Lunar Ice!",
+        cuteIntroText: "Dr. Laila detected buried water-ice near the lunar South Pole! Build a rover under $75M that survives a freezing 12-hour lunar night. Remember: heavy instruments must hibernate at night so the heaters don't die!",
+        cuteOutroChar: "🚜❄️",
+        cuteOutroTitle: "Real NASA Journey: How VIPER Explores the Dark!",
+        cuteOutroText: "NASA's VIPER rover was designed just like yours! Because sunlight hits the Moon's poles at a super low angle, engineers mounted solar panels on its sides and programmed VIPER to hibernate during freezing lunar shadows.",
+        parts: [
+            { id: "rover_chassis", icon: "🚜", category: "core", shortName: "ROVER CHASSIS", name: "Structure (20W Day / 30W Night Heater)", mass: 150, cost: 10000000, powerGenDay: 0, powerUseDay: 20, powerUseNight: 30, batteryWh: 0, points: 0, required: true },
+            { id: "bat_2", icon: "🔋", category: "system", shortName: "500Wh BATTERY", name: "500Wh Battery Pack", mass: 15, cost: 500000, powerGenDay: 0, powerUseDay: 0, powerUseNight: 0, batteryWh: 500, points: 0 },
+            { id: "solar_2", icon: "☀️", category: "system", shortName: "SOLAR ARRAY (450W)", name: "Solar Array (450 W Day / 0 W Night)", mass: 35, cost: 2500000, powerGenDay: 450, powerUseDay: 0, powerUseNight: 0, batteryWh: 0, points: 0 },
+            { id: "comm_ant_2", icon: "📡", category: "system", shortName: "COMMS + ANTENNA", name: "Communication System + Antenna", mass: 0.32, cost: 28000, powerGenDay: 0, powerUseDay: 11, powerUseNight: 1.2, batteryWh: 0, points: 0 },
+            { id: "drill_2", icon: "⛏️", category: "heavy_science", shortName: "ICE-MINING DRILL", name: "Ice-Mining Drill (150 W)", mass: 16, cost: 15000000, powerGenDay: 0, powerUseDay: 150, powerUseNight: 150, batteryWh: 0, points: 40 },
+            { id: "cam_2", icon: "📷", category: "light_science", shortName: "SCIENTIFIC CAMERA", name: "Scientific Camera (6 W)", mass: 0.5, cost: 45000, powerGenDay: 0, powerUseDay: 6, powerUseNight: 6, batteryWh: 0, points: 20 },
+            { id: "radar_2", icon: "📶", category: "heavy_science", shortName: "GROUND RADAR", name: "Ice-Penetrating Radar (25 W)", mass: 36, cost: 45000000, powerGenDay: 0, powerUseDay: 25, powerUseNight: 25, batteryWh: 0, points: 45 }
+        ]
+    },
+    3: {
+        id: 3,
+        code: "MISSION 03",
+        icon: "🪐",
+        craftLabel: "DEEP SPACE EUROPA ORBITER",
+        title: "MISSION 03:<br>UNDER EUROPA'S ICE",
+        cleanTitle: "MISSION 03: UNDER EUROPA'S ICE",
+        levelName: "ADVANCED",
+        objective: "SUBSURFACE OCEAN SCAN",
+        description: "Deep space probe to scan ice with radar. Dr. Laila says: 'We want to know the ice thickness without drilling.'",
+        budget: 300000000,
+        rocketName: "Falcon Heavy",
+        rocketCapacity: 16800,
+        rocketCost: 97000000,
+        specsSummary: "Deep Space Cap: 16,800 kg | Launch Cost: $97M",
+        eclipseHours: 0,
+        orbitPhysics: "SOLAR DISTANCE: 780M KM | SOLAR FLUX: 3.7% OF EARTH | TWR > 1",
+        introVideo: "videos/mission3_intro.mp4",
+        outroVideo: "videos/mission3_nasa_story.mp4",
+        cuteIntroChar: "🛸🪐",
+        cuteIntroTitle: "Deep Space Briefing: Mystery of Europa!",
+        cuteIntroText: "At 780 million km from the Sun, solar intensity drops to just 3.7%! We need a Nuclear RTG to power the REASON Radar and scan Europa's subsurface ocean without heavy drills.",
+        cuteOutroChar: "🌊🔭",
+        cuteOutroTitle: "Real NASA Journey: Europa Clipper's Titanium Vault!",
+        cuteOutroText: "In reality, NASA's Europa Clipper uses specialized instruments like REASON radar to look through kilometers of ice and hides its electronics inside a thick Titanium Radiation Vault to survive Jupiter's magnetic storms!",
+        parts: [
+            { id: "probe_chassis", icon: "🛡️", category: "core", shortName: "PROBE BUS", name: "Radiation-Shielded Bus (20 W)", mass: 150, cost: 10000000, powerGenDay: 0, powerUseDay: 20, powerUseNight: 20, batteryWh: 0, points: 0, required: true },
+            { id: "rtg_3", icon: "☢️", category: "system", shortName: "NUCLEAR RTG (110W)", name: "Nuclear RTG Generator (110 W Constant)", mass: 45, cost: 109000000, powerGenDay: 110, powerUseDay: 0, powerUseNight: 0, batteryWh: 1000, points: 0 },
+            { id: "solar_3", icon: "☀️", category: "system", shortName: "SOLAR ARRAY (17W)", name: "Solar Array (Only 17 W at Jupiter)", mass: 35, cost: 2500000, powerGenDay: 17, powerUseDay: 0, powerUseNight: 0, batteryWh: 0, points: 0 },
+            { id: "comm_ant_3", icon: "📡", category: "system", shortName: "COMMS + ANTENNA", name: "Deep Space Transceiver + Antenna", mass: 0.32, cost: 28000, powerGenDay: 0, powerUseDay: 11, powerUseNight: 11, batteryWh: 0, points: 0 },
+            { id: "radar_3", icon: "📶", category: "science", shortName: "REASON RADAR", name: "REASON Ice-Penetrating Radar (25 W)", mass: 36, cost: 45000000, powerGenDay: 0, powerUseDay: 25, powerUseNight: 25, batteryWh: 0, points: 45 },
+            { id: "cam_3", icon: "📷", category: "science", shortName: "EUROPA CAMERA", name: "Europa Imaging Camera (6 W)", mass: 0.5, cost: 45000, powerGenDay: 0, powerUseDay: 6, powerUseNight: 6, batteryWh: 0, points: 20 },
+            { id: "drill_3", icon: "⛏️", category: "useless", shortName: "SURFACE ICE DRILL", name: "Surface Ice Drill (150 W - Useless on Orbit)", mass: 16, cost: 15000000, powerGenDay: 0, powerUseDay: 150, powerUseNight: 150, batteryWh: 0, points: 0 }
+        ]
+    }
+};
+
+let unlockedLevel = 1;
+let completedMissions = new Set();
+let currentLevel = levelsData[1];
+let selectedParts = new Set(["chassis_6u"]);
+let launchTimer = null;
+
+function goToScreen(screenId) {
+    if (launchTimer) clearInterval(launchTimer);
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(screenId).classList.add("active");
+    if (screenId === "screen-home") updateHomeScreen();
+if (screenId === "screen-missions") renderMissions();
+window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function formatMoney(amount) {
+return "$" + amount.toLocaleString("en-US");
+}
+function updateHomeScreen() {
+const percent = Math.round((completedMissions.size / 3) * 100);
+document.getElementById("home-progress-fill").style.height = percent + "%";
+document.getElementById("home-progress-text").textContent = ${percent}% Complete;
+const stats = calculatePhysics();
+document.getElementById("home-current-budget").textContent = formatMoney(stats.totalCost);
+document.getElementById("home-target-budget").textContent = formatMoney(currentLevel.budget);
+const ratio = Math.min(100, Math.max(5, (stats.totalCost / currentLevel.budget) * 100));
+document.getElementById("home-budget-glow").style.width = ratio + "%";
+}
+function openCurrentLab() { selectLevel(currentLevel.id); }
+function renderMissions() {
+const container = document.getElementById("mission-selector");
+container.innerHTML = Object.values(levelsData).map(lvl => {
+const isUnlocked = lvl.id <= unlockedLevel;
+const isDone = completedMissions.has(lvl.id);
+return <div class="mission-card ${isUnlocked ? 'unlocked' : 'locked'}"> <div> <div class="m-card-top"> <div class="m-icon">${lvl.icon}</div> <div class="m-title">${lvl.title} ${isDone ? '✅' : ''}</div> </div> <div class="m-meta">LEVEL: ${lvl.levelName}<br>OBJECTIVE: ${lvl.objective}</div> <p class="m-desc">${lvl.description}</p> </div> <div> <div class="m-specs"> <strong>BUDGET TARGET:</strong> ${formatMoney(lvl.budget)}<br> <strong>LAUNCH VEHICLE:</strong> ${lvl.rocketName}<br> <strong>CAPACITY / SPECS:</strong><br>${lvl.specsSummary} </div> ${isUnlocked ?🚀 SELECT MISSION:🔒 LOCKED} </div> </div>;
+}).join("");
+}

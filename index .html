@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPACEO | NASA Space Apps Qena</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="space-bg"></div>
+
+<div class="container">
+    <section id="screen-home" class="screen active">
+        <div class="top-bar">
+            <div class="nasa-badge">
+                <span class="nasa-red">NASA</span>
+                <strong>SPACE APPS</strong>
+                <span class="qena-loc">📍 QENA</span>
+            </div>
+            <div class="hero-title">
+                <h1>SPACEO</h1>
+                <p>Launch your ambition. Solve challenges. Make a difference.</p>
+            </div>
+        </div>
+
+        <div class="home-main-area">
+            <div class="prep-card">
+                <div class="progress-pill">
+                    <div class="progress-fill" id="home-progress-fill" style="height: 0%;"></div>
+                </div>
+                <div class="prep-text">
+                    Mission Prep<br>Status:<br>
+                    <strong id="home-progress-text">0% Complete</strong>
+                </div>
+            </div>
+
+            <div class="home-actions">
+                <div class="action-card card-purple" onclick="goToScreen('screen-missions')">
+                    <div class="card-icon">🚀</div>
+                    <div class="card-label">START NEW<br>MISSION</div>
+                </div>
+
+                <div class="action-card card-blue" onclick="openCurrentLab()">
+                    <div class="card-icon">🛰️</div>
+                    <div class="card-label">MISSION LAB<br>& ASSEMBLY</div>
+                </div>
+
+                <div class="action-card card-teal" onclick="goToScreen('screen-training')">
+                    <div class="card-icon">🪐</div>
+                    <div class="card-label">TRAINING<br>& RULES</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-budget-bar">
+            <div class="budget-text">
+                CURRENT BUDGET: <span id="home-current-budget">$0</span> &nbsp;|&nbsp; TARGET: <span id="home-target-budget">$500,000</span>
+            </div>
+            <div class="budget-track">
+                <div class="budget-glow" id="home-budget-glow" style="width: 5%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screen-missions" class="screen">
+        <div class="missions-header">
+            <h2>SELECT YOUR MISSION</h2>
+            <p>CHOOSE YOUR NASA MISSION PROFILE | MANAGE BUDGET, PAYLOAD, AND LAUNCH.</p>
+        </div>
+
+        <div class="missions-grid" id="mission-selector"></div>
+
+        <div class="center-btn-wrap">
+            <button class="dark-pill-btn" onclick="goToScreen('screen-home')">BACK TO HOME</button>
+        </div>
+    </section>
+
+    <section id="screen-assembly" class="screen hud-frame">
+        <div class="hud-topbar">
+            <button class="nav-pill-sm" onclick="goToScreen('screen-missions')">&lt; MISSIONS</button>
+            <h2 id="lab-mission-title">MISSION 01: EYES ON CLIMATE</h2>
+            <button class="codex-btn" onclick="playMissionVideo('intro')">
+                <span>🎬</span>
+                <div>REPLAY<br>BRIEFING</div>
+            </button>
+        </div>
+
+        <div class="lab-3col">
+            <div class="lab-col">
+                <h3 class="col-heading">MISSION PARAMETERS & TELEMETRY</h3>
+                <div class="telemetry-stack">
+                    <div class="hud-box">
+                        <div class="hud-box-row">
+                            <span>BUDGET:</span>
+                            <strong id="stat-budget">$0 / $0</strong>
+                        </div>
+                        <div class="mini-bar"><div class="mini-fill" id="bar-budget"></div></div>
+                        <small>Budget used</small>
+                    </div>
+
+                    <div class="hud-box">
+                        <div class="hud-box-row">
+                            <span>MASS:</span>
+                            <strong id="stat-mass">0 / 0 kg</strong>
+                        </div>
+                        <div class="mini-bar"><div class="mini-fill" id="bar-mass"></div></div>
+                        <small id="mass-sub-label">Payload Mass</small>
+                    </div>
+
+                    <div class="hud-box">
+                        <div class="hud-box-row">
+                            <span>DAY POWER:</span>
+                            <strong id="stat-power-day">0 / 0 W</strong>
+                        </div>
+                        <div class="mini-bar"><div class="mini-fill" id="bar-power"></div></div>
+                        <small>Solar / Generator Output</small>
+                    </div>
+
+                    <div class="hud-box" id="night-battery-box">
+                        <div class="hud-box-row">
+                            <span>NIGHT BATTERY:</span>
+                            <strong id="stat-battery">0 / 0 Wh</strong>
+                        </div>
+                        <div class="mini-bar"><div class="mini-fill" id="bar-battery"></div></div>
+                        <small>Night / Eclipse Capacity</small>
+                    </div>
+
+                    <div class="hud-box">
+                        <div class="hud-box-row">
+                            <span>SCIENCE SCORE:</span>
+                            <strong id="stat-points" class="cyan-text">0 PTS</strong>
+                        </div>
+                        <div class="mini-bar"><div class="mini-fill" id="bar-points"></div></div>
+                        <small>Total Science</small>
+                    </div>
+
+                    <div class="hud-box diag-box">
+                        <div class="diag-title">ATLAS AI DIAGNOSTIC</div>
+                        <p id="atlas-hint-text">Select subsystems to begin integration...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-center-blueprint">
+                <div class="blueprint-grid-floor"></div>
+                <div class="blueprint-craft" id="blueprint-visual">
+                    <div class="craft-emoji" id="craft-icon">🛰️</div>
+                    <div class="craft-label" id="craft-name">6U CUBESAT ARCHITECTURE</div>
+                </div>
+                <div class="blueprint-tags" id="blueprint-tags"></div>
+
+                <div class="night-toggle-wrap" id="night-schedule-box" style="display: none;">
+                    <label>
+                        <input type="checkbox" id="night-shutdown" checked onchange="updateDashboard()">
+                        <span>🌙 Hibernate heavy drills during 12h lunar night</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="lab-col">
+                <h3 class="col-heading">COMPONENTS & PAYLOAD INVENTORY</h3>
+                <div class="inventory-stack" id="inventory-list"></div>
+            </div>
+        </div>
+
+        <div class="hud-bottom-bar">
+            <button class="dark-pill-btn" onclick="resetCurrentBuild()">RESET BUILD</button>
+            <button class="purple-launch-btn" onclick="goToFinalCheck()">
+                RUN ATLAS CHECK & LAUNCH
+            </button>
+        </div>
+    </section>
+
+    <section id="screen-launch" class="screen hud-frame">
+        <div class="hud-topbar">
+            <button class="nav-pill-sm" onclick="abortLaunch()">&lt; BACK TO LAB</button>
+            <h2 id="check-mission-header">MISSION 01: FINAL SYSTEMS CHECK</h2>
+            <div class="atlas-status-badge">
+                <span class="pulse-dot"></span> ATLAS AI: READY
+            </div>
+        </div>
+
+        <div class="lab-3col">
+            <div class="lab-col">
+                <h3 class="col-heading">ATLAS AI PRE-LAUNCH REPORT</h3>
+                <div id="prelaunch-report-list" class="telemetry-stack"></div>
+                <div id="system-status-banner" class="status-green-box">
+                    <strong>SYSTEM STATUS:</strong><br>
+                    <span>ALL GREEN - READY FOR LAUNCH</span>
+                </div>
+            </div>
+
+            <div class="lab-center-blueprint">
+                <div class="digital-clock" id="countdown-timer">00:00:10</div>
+                <div class="clock-progress-track">
+                    <div class="clock-progress-fill" id="clock-bar"></div>
+                </div>
+                <div class="blueprint-craft rocket-shake" style="margin-top: 30px;">
+                    <div class="craft-emoji" id="launch-craft-icon">🛰️</div>
+                    <div class="craft-label" id="orbit-physics-info">ORBITAL INSERTION SEQUENCE</div>
+                </div>
+            </div>
+
+            <div class="lab-col">
+                <h3 class="col-heading">LAUNCH CONTROLS</h3>
+                <div class="telemetry-stack">
+                    <div class="hud-box step-box"><span>⚙️ CONFIRM MISSION PARAMETERS</span><strong>✓</strong></div>
+                    <div class="hud-box step-box"><span>📋 ACTIVATE ATLAS PRE-FLIGHT CHECK</span><strong>✓</strong></div>
+                    <div class="hud-box step-box"><span>🔓 UNLOCK FUEL TANK</span><strong>✓</strong></div>
+                    <div class="hud-box step-box"><span>🦾 ARM DEPLOYMENT MECHANISM</span><strong>✓</strong></div>
+                    <div class="hud-box step-box"><span>🖥️ FLIGHT COMPUTER:</span><strong>ACTIVE</strong></div>
+                    <div class="hud-box step-box"><span>📡 TELEMETRY:</span><strong>STREAMING</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hud-bottom-bar">
+            <button class="dark-pill-btn" onclick="abortLaunch()">ABORT LAUNCH</button>
+            <div class="active-seq-banner">LAUNCH SEQUENCE ACTIVE</div>
+        </div>
+    </section>
+
+    <section id="screen-report" class="screen hud-frame">
+        <div class="hud-topbar"

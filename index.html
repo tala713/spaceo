@@ -152,43 +152,11 @@
 </div>
 
 <script src="data.js?v=7"></script>
-    <script>
-    const introOverlay = document.getElementById('story-intro-overlay');
-const introVideo = document.getElementById('intro-video-player');
-
-function closeIntroVideo() {
-    introVideo.pause();
-    introVideo.currentTime = 0;
-    introOverlay.style.display = 'none';
-       localStorage.setItem('spaceo_visited', 'true');
-}
-
-
-introVideo.onended = function() {
-    closeIntroVideo();
-};
-
-window.addEventListener('DOMContentLoaded', () => {
-    const hasVisited = localStorage.getItem('spaceo_visited');
-
-    if (!hasVisited) {
-        introOverlay.style.display = 'flex';
-        introVideo.play().catch(() => {
-
-            introVideo.muted = true;
-            introVideo.play();
-        });
-    }
-});
-
-function openIntroVideoManually() {
-    introOverlay.style.display = 'flex';
-    introVideo.muted = false;
-    introVideo.currentTime = 0;
-    introVideo.play();
-}
-    </script>
-
+<div id="story-intro-overlay" class="intro-overlay" style="display: none; z-index: 600;">
+    <div class="intro-top">
+        <span class="ai-badge">🎬 SPACEO: THE STORY</span>
+        <button id="skip-intro-btn" onclick="closeIntroVideo()">SKIP ⏭</button>
+    </div>
     <div class="intro-stage">
         <video id="intro-video-player" class="intro-video" playsinline controls>
             <source src="intro.mp4" type="video/mp4">
@@ -198,6 +166,7 @@ function openIntroVideoManually() {
 
 <script src="data.js?v=7"></script>
 <script src="app.js?v=7"></script>
+
 <script>
     const introOverlay = document.getElementById('story-intro-overlay');
     const introVideo = document.getElementById('intro-video-player');
@@ -210,6 +179,7 @@ function openIntroVideoManually() {
         if (introOverlay) {
             introOverlay.style.display = 'none';
         }
+        localStorage.setItem('spaceo_visited', 'true');
     }
 
     if (introVideo) {
@@ -217,7 +187,8 @@ function openIntroVideoManually() {
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-        if (introOverlay && introVideo) {
+        const hasVisited = localStorage.getItem('spaceo_visited');
+        if (!hasVisited && introOverlay && introVideo) {
             introOverlay.style.display = 'flex';
             introVideo.play().catch(() => {
                 introVideo.muted = true;

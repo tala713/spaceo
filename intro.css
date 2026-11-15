@@ -198,19 +198,19 @@ body { background-color: #030712; color: var(--text-white); min-height: 100vh; o
     transition: background 0.4s ease;
 }
 
-body[data-screen="home"]     { --bg-image: url("images/homepage.jpeg"); }
-body[data-screen="training"] { --bg-image: url("images/homepage.jpeg"); }
-body[data-screen="missions"] { --bg-image: url("images/mission_select.jpeg"); }
+body[data-screen="home"]     { --bg-image: url("homepage.jpeg"); }
+body[data-screen="training"] { --bg-image: url("homepage.jpeg"); }
+body[data-screen="missions"] { --bg-image: url("mission_select.jpeg"); }
 
-body[data-screen="assembly"][data-level="1"] { --bg-image: url("images/mission1_assembly.jpeg"); }
-body[data-screen="assembly"][data-level="2"] { --bg-image: url("images/mission2_assembly.jpeg"); }
-body[data-screen="assembly"][data-level="3"] { --bg-image: url("images/mission3_assembly.jpeg"); }
+body[data-screen="assembly"][data-level="1"] { --bg-image: url("mission1_assembly.jpg.jpeg"); }
+body[data-screen="assembly"][data-level="2"] { --bg-image: url("mission2_assembly.jpg.jpeg"); }
+body[data-screen="assembly"][data-level="3"] { --bg-image: url("mission3_assembly.jpg.jpeg"); }
 
-body[data-screen="launch"][data-level="1"] { --bg-image: url("images/mission1_check.jpeg"); }
-body[data-screen="launch"][data-level="2"] { --bg-image: url("images/mission2_check.jpeg"); }
-body[data-screen="launch"][data-level="3"] { --bg-image: url("images/mission3_check.jpeg"); }
+body[data-screen="launch"][data-level="1"] { --bg-image: url("mission1_check.jpeg"); }
+body[data-screen="launch"][data-level="2"] { --bg-image: url("mission2_check.jpg.jpeg"); }
+body[data-screen="launch"][data-level="3"] { --bg-image: url("mission3_check.jpg.jpeg"); }
 
-body[data-screen="report"] { --bg-image: url("images/mission_report.jpeg"); }
+body[data-screen="report"] { --bg-image: url("mission_report.jpeg"); }
 body[data-screen="report"][data-result="fail"] .space-bg::after {
     background: radial-gradient(ellipse at 50% 45%, rgba(239,68,68,0.28) 0%, rgba(127,29,29,0.25) 45%, rgba(2,6,23,0.75) 100%);
 }

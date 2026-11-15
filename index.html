@@ -165,6 +165,43 @@
 </div>
 
 <script src="data.js?v=7"></script>
+    <script>
+    const introOverlay = document.getElementById('story-intro-overlay');
+const introVideo = document.getElementById('intro-video-player');
+
+function closeIntroVideo() {
+    introVideo.pause();
+    introVideo.currentTime = 0;
+    introOverlay.style.display = 'none';
+       localStorage.setItem('spaceo_visited', 'true');
+}
+
+
+introVideo.onended = function() {
+    closeIntroVideo();
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+    const hasVisited = localStorage.getItem('spaceo_visited');
+
+    if (!hasVisited) {
+        introOverlay.style.display = 'flex';
+        introVideo.play().catch(() => {
+
+            introVideo.muted = true;
+            introVideo.play();
+        });
+    }
+});
+
+function openIntroVideoManually() {
+    introOverlay.style.display = 'flex';
+    introVideo.muted = false;
+    introVideo.currentTime = 0;
+    introVideo.play();
+}
+    </script>
+
 <script src="app.js?v=7"></script>
 </body>
 </html>

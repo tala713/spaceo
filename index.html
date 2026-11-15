@@ -17,20 +17,7 @@
 </head>
 <body data-screen="home" data-level="1" data-result="pass">
 <div class="space-bg"></div>
-    <div id="story-intro-overlay" class="intro-overlay" style="display: none;">
-    <div class="intro-top">
-        <span class="ai-badge">🎬 SPACEO: THE STORY</span>
-        <div>
-            <button id="skip-intro-btn" onclick="closeIntroVideo()">SKIP ⏭</button>
-        </div>
-    </div>
-
-    <div class="intro-stage">
-        <video id="intro-video-player" class="intro-video" playsinline controls>
-            <source src="videos/spaceo_story.mp4" type="video/mp4">
-        </video>
-    </div>
-</div>
+   
 <div class="container">
     <section id="screen-home" class="screen active">
         <div class="top-bar">
@@ -202,61 +189,53 @@ function openIntroVideoManually() {
 }
     </script>
 
-<script src="app.js?v=7"></script>
-    <div id="story-intro-overlay" class="intro-overlay" style="display: flex; z-index: 600;">
+<div id="story-intro-overlay" class="intro-overlay" style="display: none; z-index: 600;">
     <div class="intro-top">
         <span class="ai-badge">🎬 SPACEO: THE STORY</span>
-        <button onclick="closeIntroVideo()">SKIP ⏭</button>
+        <button id="skip-intro-btn" onclick="closeIntroVideo()">SKIP ⏭</button>
     </div>
-
     <div class="intro-stage">
-   
-        <video id="intro-video-player" class="intro-video" playsinline controls muted autoplay>
+        <video id="intro-video-player" class="intro-video" playsinline controls>
             <source src="intro.mp4" type="video/mp4">
         </video>
     </div>
 </div>
 
+<script src="data.js?v=7"></script>
+<script src="app.js?v=7"></script>
 <script>
     const introOverlay = document.getElementById('story-intro-overlay');
     const introVideo = document.getElementById('intro-video-player');
 
-
-    if (localStorage.getItem('spaceo_visited') === 'true') {
-        introOverlay.style.display = 'none';
-    }
-
     function closeIntroVideo() {
-        introVideo.pause();
-        introOverlay.style.display = 'none';
+        if (introVideo) {
+            introVideo.pause();
+            introVideo.currentTime = 0;
+        }
+        if (introOverlay) {
+            introOverlay.style.display = 'none';
+        }
         localStorage.setItem('spaceo_visited', 'true');
     }
 
-    introVideo.onended = closeIntroVideo;
+    if (introVideo) {
+        introVideo.onended = closeIntroVideo;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const hasVisited = localStorage.getItem('spaceo_visited');
+        if (!hasVisited && introOverlay && introVideo) {
+            introOverlay.style.display = 'flex';
+            introVideo.play().catch(() => {
+                introVideo.muted = true;
+                introVideo.play();
+            });
+        }
+    });
+
+    function skipStoryIntro() {
+        closeIntroVideo();
+    }
 </script>
- 
-<div id="splash-screen" class="splash-overlay">
-    <div class="splash-card">
-        <div class="nasa-badge"><span class="nasa-red">NASA</span><strong>SPACE APPS</strong><span class="qena-loc">📍 QENA</span></div>
-        <h1>SPACEO</h1>
-        <p>Launch your ambition. Solve challenges. Make a difference.</p>
-        <button class="purple-launch-btn" onclick="startStoryIntro()">🚀 START MISSION</button>
-    </div>
-</div>
-
-
-<div id="story-intro-overlay" class="intro-overlay" style="display: none;">
-    <div class="intro-top">
-        <span class="ai-badge">🎬 SPACEO STORY INTRO</span>
-        <div>
-            <button onclick="skipStoryIntro()">SKIP INTRO ⏭️</button>
-        </div>
-    </div>
-    <div class="intro-stage">
-        <video id="game-intro-video" class="intro-video" controls playsinline onended="skipStoryIntro()">
-            <source src="videos/intro.mp4" type="video/mp4">
-        </video>
-    </div>
-</div>
 </body>
 </html>

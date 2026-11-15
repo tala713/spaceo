@@ -215,7 +215,6 @@ function openIntroVideoManually() {
         if (introOverlay) {
             introOverlay.style.display = 'none';
         }
-        localStorage.setItem('spaceo_visited', 'true');
     }
 
     if (introVideo) {
@@ -223,8 +222,7 @@ function openIntroVideoManually() {
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-        const hasVisited = localStorage.getItem('spaceo_visited');
-        if (!hasVisited && introOverlay && introVideo) {
+        if (introOverlay && introVideo) {
             introOverlay.style.display = 'flex';
             introVideo.play().catch(() => {
                 introVideo.muted = true;

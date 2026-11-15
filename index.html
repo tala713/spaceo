@@ -141,64 +141,36 @@
         <div class="center-btn-wrap"><button class="dark-pill-btn" onclick="goToScreen('screen-home')">BACK TO HOME</button></div>
     </section>
 </div>
-
-<div id="story-video-modal" class="video-overlay" style="display: none;">
-    <div class="video-stage-card">
-        <div class="video-stage-top"><span class="ai-badge" id="video-stage-badge">🎬 AI MISSION BRIEFING</span><button class="skip-video-btn" onclick="closeMissionVideo()">SKIP / CONTINUE ⏭️</button></div>
-        <video id="mission-video-player" class="real-video-box" controls style="display: none;"></video>
-        <div class="cute-stage" id="cute-storyboard-box"><div class="cute-character-bounce" id="cute-char-emoji">👩‍🚀</div><h3 id="cute-story-title">Mission Briefing</h3><p id="cute-story-dialogue"></p><div class="story-nasa-note" id="cute-nasa-note" style="display: none;"></div></div>
-        <button class="purple-launch-btn" id="video-continue-btn" onclick="closeMissionVideo()">START BUILDING SPACECRAFT 🚀</button>
-    </div>
-</div>
-
-<div id="story-intro-overlay" class="intro-overlay" style="display: none; z-index: 600;">
+<div id="story-intro-overlay" class="intro-overlay" style="display: flex; z-index: 600;">
     <div class="intro-top">
         <span class="ai-badge">🎬 SPACEO: THE STORY</span>
-        <button id="skip-intro-btn" onclick="closeIntroVideo()">SKIP ⏭</button>
+        <button onclick="closeIntroVideo()">SKIP ⏭</button>
     </div>
+
     <div class="intro-stage">
-        <video id="intro-video-player" class="intro-video" playsinline controls>
-            <source src="intro.mp4" type="video/mp4">
+        <!-- غيّري اسم الملف هنا لاسم الفيديو الحقيقي عندك -->
+        <video id="intro-video-player" class="intro-video" playsinline controls muted autoplay>
+            <source src="ضع_اسم_ملف_الفيديو_هنا.mp4" type="video/mp4">
         </video>
     </div>
 </div>
-
-<script src="data.js?v=7"></script>
-<script src="app.js?v=7"></script>
 
 <script>
     const introOverlay = document.getElementById('story-intro-overlay');
     const introVideo = document.getElementById('intro-video-player');
 
+    // إذا كان اللاعب دخل قبل ذلك، اخفِ الفيديو فوراً
+    if (localStorage.getItem('spaceo_visited') === 'true') {
+        introOverlay.style.display = 'none';
+    }
+
     function closeIntroVideo() {
-        if (introVideo) {
-            introVideo.pause();
-            introVideo.currentTime = 0;
-        }
-        if (introOverlay) {
-            introOverlay.style.display = 'none';
-        }
+        introVideo.pause();
+        introOverlay.style.display = 'none';
         localStorage.setItem('spaceo_visited', 'true');
     }
 
-    if (introVideo) {
-        introVideo.onended = closeIntroVideo;
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        const hasVisited = localStorage.getItem('spaceo_visited');
-        if (!hasVisited && introOverlay && introVideo) {
-            introOverlay.style.display = 'flex';
-            introVideo.play().catch(() => {
-                introVideo.muted = true;
-                introVideo.play();
-            });
-        }
-    });
-
-    function skipStoryIntro() {
-        closeIntroVideo();
-    }
+    introVideo.onended = closeIntroVideo;
 </script>
 </body>
 </html>

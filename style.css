@@ -189,6 +189,13 @@ Use code with caution.
 #story-intro-overlay {
     z-index: 600;
 }
+}
+.intro-top, .intro-top button {
+    position: relative;
+    z-index: 9999;
+    pointer-events: auto;
+    cursor: pointer;
+}
 .rule-card h3 { color: var(--cyan); margin-bottom: 10px; }
 
 

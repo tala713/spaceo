@@ -203,5 +203,36 @@ function openIntroVideoManually() {
     </script>
 
 <script src="app.js?v=7"></script>
+    <div id="story-intro-overlay" class="intro-overlay" style="display: flex; z-index: 600;">
+    <div class="intro-top">
+        <span class="ai-badge">🎬 SPACEO: THE STORY</span>
+        <button onclick="closeIntroVideo()">SKIP ⏭</button>
+    </div>
+
+    <div class="intro-stage">
+   
+        <video id="intro-video-player" class="intro-video" playsinline controls muted autoplay>
+            <source src="ضع_اسم_ملف_الفيديو_هنا.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<script>
+    const introOverlay = document.getElementById('story-intro-overlay');
+    const introVideo = document.getElementById('intro-video-player');
+
+
+    if (localStorage.getItem('spaceo_visited') === 'true') {
+        introOverlay.style.display = 'none';
+    }
+
+    function closeIntroVideo() {
+        introVideo.pause();
+        introOverlay.style.display = 'none';
+        localStorage.setItem('spaceo_visited', 'true');
+    }
+
+    introVideo.onended = closeIntroVideo;
+</script>
 </body>
 </html>

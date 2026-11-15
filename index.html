@@ -142,17 +142,15 @@
         <div class="center-btn-wrap"><button class="dark-pill-btn" onclick="goToScreen('screen-home')">BACK TO HOME</button></div>
     </section>
 </div>
-<div id="story-intro-overlay" class="intro-overlay" style="display: flex; z-index: 600;">
+<div id="story-intro-overlay" class="intro-overlay" style="display: flex; position: fixed; inset: 0; z-index: 9999; background: #000;">
     <div class="intro-top">
         <span class="ai-badge">🎬 SPACEO: THE STORY</span>
         <button onclick="closeIntroVideo()">SKIP ⏭</button>
     </div>
-
     <div class="intro-stage">
-      
         <video id="intro-video-player" class="intro-video" playsinline controls muted autoplay>
-       <source src="intro.mp4" type="video/mp4">
-          
+            <source src="intro.mp4" type="video/mp4">
+       
         </video>
     </div>
 </div>
@@ -161,15 +159,19 @@
     const introOverlay = document.getElementById('story-intro-overlay');
     const introVideo = document.getElementById('intro-video-player');
 
-
-    if (localStorage.getItem('spaceo_visited') === 'true') {
-        introOverlay.style.display = 'none';
-    }
+   
 
     function closeIntroVideo() {
         introVideo.pause();
         introOverlay.style.display = 'none';
         localStorage.setItem('spaceo_visited', 'true');
+    }
+
+  
+    function playMissionVideo(type) {
+        introOverlay.style.display = 'flex';
+        introVideo.currentTime = 0;
+        introVideo.play();
     }
 
     introVideo.onended = closeIntroVideo;

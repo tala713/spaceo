@@ -17,6 +17,20 @@
 </head>
 <body data-screen="home" data-level="1" data-result="pass">
 <div class="space-bg"></div>
+    <div id="story-intro-overlay" class="intro-overlay" style="display: none;">
+    <div class="intro-top">
+        <span class="ai-badge">🎬 SPACEO: THE STORY</span>
+        <div>
+            <button id="skip-intro-btn" onclick="closeIntroVideo()">SKIP ⏭</button>
+        </div>
+    </div>
+
+    <div class="intro-stage">
+        <video id="intro-video-player" class="intro-video" playsinline controls>
+            <source src="videos/spaceo_story.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
 <div class="container">
     <section id="screen-home" class="screen active">
         <div class="top-bar">
